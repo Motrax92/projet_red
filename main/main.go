@@ -1,4 +1,4 @@
-package red              
+package main             
 
 import (
 	"fmt"
