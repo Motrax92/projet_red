@@ -1,11 +1,7 @@
-package main
+package red
 
-import (
-	"fmt"
-)
-
-func main(){
-	fmt.Println(`                                                         
+func PageDeGarde() string {
+	return `
                                                                
 RRRRRRRRRRRRRRRRR   EEEEEEEEEEEEEEEEEEEEEEDDDDDDDDDDDDD        
 R::::::::::::::::R  E::::::::::::::::::::ED::::::::::::DDD     
@@ -22,6 +18,6 @@ RR:::::R     R:::::REE::::::EEEEEEEEE::::EDDD:::::DDDDD:::::D
 RR:::::R     R:::::REE::::::EEEEEEEE:::::EDDD:::::DDDDD:::::D  
 R::::::R     R:::::RE::::::::::::::::::::ED:::::::::::::::DD   
 R::::::R     R:::::RE::::::::::::::::::::ED::::::::::::DDD     
-RRRRRRRR     RRRRRRREEEEEEEEEEEEEEEEEEEEEEDDDDDDDDDDDDD
-`)                                                                 
+RRRRRRRR     RRRRRRREEEEEEEEEEEEEEEEEEEEEEDDDDDDDDDDDDD        
+`
 }

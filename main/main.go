@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"red"
 )
 
-fmt.Println("sigrnslkm")
+func main() {
+	fmt.Println(red.PageDeGarde())
+}
