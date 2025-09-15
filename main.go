@@ -1,1 +1,5 @@
-func proute
+package red              
+
+import (
+	"fmt"
+)
