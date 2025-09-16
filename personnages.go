@@ -40,16 +40,6 @@ type Ennemi struct {
 }
 
 // ----------------------
-// Inventaire
-// ----------------------
-func Inventaire() {
-	fmt.Println("=== Inventaire ===")
-	fmt.Println("1. Potion de soin (+20 PV)")
-	fmt.Println("2. Épée de feu (+5 Force)")
-	fmt.Println("===================")
-}
-
-// ----------------------
 // Combat
 // ----------------------
 func LancerCombat() {
@@ -60,7 +50,8 @@ func LancerCombat() {
 			Vie:   100,
 			Force: 20,
 		},
-		Niveau:= 1,
+
+		Niveau :1,
 	}
 
 	// Création d’un ennemi
@@ -87,7 +78,6 @@ func LancerCombat() {
 		if choix == 1 {
 			joueur.Attaquer(&ennemi.Personnage)
 		} else if choix == 2 {
-			Inventaire()
 			continue // on saute le reste du tour (l'ennemi ne joue pas encore)
 		} else {
 			fmt.Println("Choix invalide, tu perds ton tour !")

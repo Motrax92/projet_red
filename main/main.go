@@ -7,38 +7,63 @@ import (
 )
 
 func main() {
-	// Affichage de la page de garde
-	fmt.Println(red.PageDeGarde())
+	for {
+		// --- MENU PRINCIPAL ---
+		fmt.Println(red.PageDeGarde())
+		fmt.Println("------------------------------------------------")
+		fmt.Println("                 M E N U   P R I N C I P A L    ")
+		fmt.Println("------------------------------------------------")
+		fmt.Println("1. Jouer")
+		fmt.Println("2. Paramètres")
+		fmt.Println("3. Quitter")
+		fmt.Println("------------------------------------------------")
 
-	// Préparer le WaitGroup pour la musique
-	var wg sync.WaitGroup
-	wg.Add(1) // On ajoute la goroutine musique
+		// Lecture du choix utilisateur
+		var choix int
+		fmt.Print("👉 Entrez un numéro de menu : ")
+		fmt.Scanln(&choix)
 
-	// Lancer la musique en arrière-plan
-	go func() {
-		defer wg.Done()
-		red.Musique() // boucle infinie tant que tu n'arrêtes pas le programme
-	}()
+		switch choix {
+		case 1:
+			fmt.Println("🎮 Le jeu commence !")
 
-	// Lancer les mini-jeux
-	red.Games()
+			// Lancer la musique en arrière-plan avec WaitGroup
+			var wg sync.WaitGroup
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				red.Musique()
+			}()
 
-	// Exemple de personnage
-	name := "Héros"
-	inventory := map[string]int{
-		"Potion de vie":    2,
-		"Potion de poison": 1,
-		"Bouclier":         1,
+			// Exemple de personnage et inventaire
+			name := "Héros"
+			inventory := map[string]int{
+				"Potion de vie":    2,
+				"Potion de poison": 1,
+				"Bouclier":         1,
+			}
+
+			// Afficher l'inventaire
+			red.Inventaire(name, inventory)
+
+			// Lancer le combat tour par tour
+			red.LancerCombat()
+
+			// Attendre la fin de la musique avant de revenir au menu
+			wg.Wait()
+			fmt.Println("🎵 La musique est terminée.\n")
+
+		case 2:
+			fmt.Println("⚙️ Menu Paramètres (en cours de développement...)")
+
+		case 3:
+			fmt.Println("👋 Au revoir !")
+			return // quitte le programme
+
+		default:
+			fmt.Println("❌ Choix invalide, réessayez.")
+		}
+
+		fmt.Println() // saute une ligne pour la lisibilité
 	}
-
-	// Affichage de l'inventaire
-	red.Inventaire(name, inventory)
-
-	// Lancer un combat
-	fmt.Println("\n=== Début du combat ===")
-	red.LancerCombat()
-
-	// Attendre que la musique se termine avant de fermer le programme
-	wg.Wait()
-	fmt.Println("Programme terminé.")
 }
