@@ -17,9 +17,10 @@ func main() {
 	// Lancer la musique en arrière-plan
 	go func() {
 		defer wg.Done()
-		red.Musique()
+		red.Musique() // boucle infinie tant que tu n'arrêtes pas le programme
 	}()
 
+	// Lancer les mini-jeux
 	red.Games()
 
 	// Exemple de personnage
@@ -32,6 +33,10 @@ func main() {
 
 	// Affichage de l'inventaire
 	red.Inventaire(name, inventory)
+
+	// Lancer un combat
+	fmt.Println("\n=== Début du combat ===")
+	red.LancerCombat()
 
 	// Attendre que la musique se termine avant de fermer le programme
 	wg.Wait()
