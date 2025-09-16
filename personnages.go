@@ -1,7 +1,12 @@
 package red
 
-import "fmt"
+import (
+	"fmt"
+)
 
+// ----------------------
+// Personnages
+// ----------------------
 type Personnage struct {
 	Nom   string
 	Vie   int
@@ -34,7 +39,19 @@ type Ennemi struct {
 	Type string
 }
 
-// Fonction publique qui lance un combat
+// ----------------------
+// Inventaire
+// ----------------------
+func Inventaire() {
+	fmt.Println("=== Inventaire ===")
+	fmt.Println("1. Potion de soin (+20 PV)")
+	fmt.Println("2. Épée de feu (+5 Force)")
+	fmt.Println("===================")
+}
+
+// ----------------------
+// Combat
+// ----------------------
 func LancerCombat() {
 	// Création du joueur
 	joueur := Joueur{
@@ -43,7 +60,7 @@ func LancerCombat() {
 			Vie:   100,
 			Force: 20,
 		},
-		Niveau: 1,
+		Niveau:= 1,
 	}
 
 	// Création d’un ennemi
@@ -58,12 +75,32 @@ func LancerCombat() {
 
 	// Déroulement du combat
 	for joueur.EstVivant() && ennemi.EstVivant() {
-		joueur.Attaquer(&ennemi.Personnage)
+		// Tour du joueur
+		fmt.Println("\n--- Tour du joueur ---")
+		fmt.Println("1. Attaquer")
+		fmt.Println("2. Inventaire")
+		fmt.Print("Choisis une action : ")
+
+		var choix int
+		fmt.Scan(&choix)
+
+		if choix == 1 {
+			joueur.Attaquer(&ennemi.Personnage)
+		} else if choix == 2 {
+			Inventaire()
+			continue // on saute le reste du tour (l'ennemi ne joue pas encore)
+		} else {
+			fmt.Println("Choix invalide, tu perds ton tour !")
+		}
+
+		// Vérifie si l’ennemi est mort
 		if !ennemi.EstVivant() {
 			fmt.Println(ennemi.Nom, "est vaincu !")
 			break
 		}
 
+		// Tour de l’ennemi
+		fmt.Println("\n--- Tour de l’ennemi ---")
 		ennemi.Attaquer(&joueur.Personnage)
 		if !joueur.EstVivant() {
 			fmt.Println(joueur.Nom, "est mort !")
@@ -71,5 +108,5 @@ func LancerCombat() {
 		}
 	}
 
-	fmt.Println("Combat terminé ⚔️")
+	fmt.Println("\nCombat terminé ⚔️")
 }
