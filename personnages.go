@@ -33,3 +33,43 @@ type Ennemi struct {
 	Personnage
 	Type string
 }
+
+// Fonction publique qui lance un combat
+func LancerCombat() {
+	// Création du joueur
+	joueur := Joueur{
+		Personnage: Personnage{
+			Nom:   "Héros",
+			Vie:   100,
+			Force: 20,
+		},
+		Niveau: 1,
+	}
+
+	// Création d’un ennemi
+	ennemi := Ennemi{
+		Personnage: Personnage{
+			Nom:   "Gobelin",
+			Vie:   50,
+			Force: 10,
+		},
+		Type: "Monstre",
+	}
+
+	// Déroulement du combat
+	for joueur.EstVivant() && ennemi.EstVivant() {
+		joueur.Attaquer(&ennemi.Personnage)
+		if !ennemi.EstVivant() {
+			fmt.Println(ennemi.Nom, "est vaincu !")
+			break
+		}
+
+		ennemi.Attaquer(&joueur.Personnage)
+		if !joueur.EstVivant() {
+			fmt.Println(joueur.Nom, "est mort !")
+			break
+		}
+	}
+
+	fmt.Println("Combat terminé ⚔️")
+}
