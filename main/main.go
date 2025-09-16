@@ -1,46 +1,112 @@
-package main
+package red
 
 import (
 	"fmt"
-	"sync"
-
-	"red"
 )
 
-func main() {
-	// Affichage de la page de garde
-	fmt.Println(red.PageDeGarde())
+// ----------------------
+// Personnages
+// ----------------------
+type Personnage struct {
+	Nom   string
+	Vie   int
+	Force int
+}
 
-	// Préparer le WaitGroup pour la musique
-	var wg sync.WaitGroup
-	wg.Add(1) // On ajoute la goroutine musique
+func (p *Personnage) EstVivant() bool {
+	return p.Vie > 0
+}
 
-	// Lancer la musique en arrière-plan
-	go func() {
-		defer wg.Done()
-		red.Musique() // boucle infinie tant que tu n'arrêtes pas le programme
-	}()
+func (p *Personnage) SubirDegats(degats int) {
+	p.Vie -= degats
+	if p.Vie < 0 {
+		p.Vie = 0
+	}
+}
 
-	// Lancer les mini-jeux
-	red.Games()
+func (p *Personnage) Attaquer(cible *Personnage) {
+	fmt.Printf("%s attaque %s et inflige %d dégâts !\n", p.Nom, cible.Nom, p.Force)
+	cible.SubirDegats(p.Force)
+}
 
-	// Exemple de personnage
-	name := "Héros"
-	inventory := map[string]int{
-		"Potion de vie":    3,
-		"Potion de poison": 4,
-		"Bouclier":         6,
-		"Boule de feu":     2,
+type Joueur struct {
+	Personnage
+	Niveau int
+}
+
+type Ennemi struct {
+	Personnage
+	Type string
+}
+
+// ----------------------
+// Inventaire
+// ----------------------
+func Inventaire() {
+	fmt.Println("=== Inventaire ===")
+	fmt.Println("1. Potion de soin (+20 PV)")
+	fmt.Println("2. Épée de feu (+5 Force)")
+	fmt.Println("===================")
+}
+
+// ----------------------
+// Combat
+// ----------------------
+func LancerCombat() {
+	// Création du joueur
+	joueur := Joueur{
+		Personnage: Personnage{
+			Nom:   "Héros",
+			Vie:   100,
+			Force: 20,
+		},
+		Niveau: 1,
 	}
 
-	// Affichage de l'inventaire
-	red.Inventaire(name, inventory)
+	// Création d’un ennemi
+	ennemi := Ennemi{
+		Personnage: Personnage{
+			Nom:   "Gobelin",
+			Vie:   50,
+			Force: 10,
+		},
+		Type: "Monstre",
+	}
 
-	// Lancer un combat
-	fmt.Println("\n=== Début du combat ===")
-	red.LancerCombat()
+	// Déroulement du combat
+	for joueur.EstVivant() && ennemi.EstVivant() {
+		// Tour du joueur
+		fmt.Println("\n--- Tour du joueur ---")
+		fmt.Println("1. Attaquer")
+		fmt.Println("2. Inventaire")
+		fmt.Print("Choisis une action : ")
 
-	// Attendre que la musique se termine avant de fermer le programme
-	wg.Wait()
-	fmt.Println("Programme terminé.")
+		var choix int
+		fmt.Scan(&choix)
+
+		if choix == 1 {
+			joueur.Attaquer(&ennemi.Personnage)
+		} else if choix == 2 {
+			Inventaire()
+			continue // on saute le reste du tour (l'ennemi ne joue pas encore)
+		} else {
+			fmt.Println("Choix invalide, tu perds ton tour !")
+		}
+
+		// Vérifie si l’ennemi est mort
+		if !ennemi.EstVivant() {
+			fmt.Println(ennemi.Nom, "est vaincu !")
+			break
+		}
+
+		// Tour de l’ennemi
+		fmt.Println("\n--- Tour de l’ennemi ---")
+		ennemi.Attaquer(&joueur.Personnage)
+		if !joueur.EstVivant() {
+			fmt.Println(joueur.Nom, "est mort !")
+			break
+		}
+	}
+
+	fmt.Println("\nCombat terminé ⚔️")
 }
