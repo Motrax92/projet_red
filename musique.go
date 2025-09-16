@@ -10,7 +10,7 @@ import (
 	"github.com/faiface/beep/speaker"
 )
 
-func musique() {
+func Musique() {
 	// Ouvrir le fichier MP3
 	f, err := os.Open("musique.mp3")
 	if err != nil {

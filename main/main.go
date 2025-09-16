@@ -1,30 +1,37 @@
-package main             
+package main
 
 import (
-	"red"
 	"fmt"
+	"red"
+	"sync"
 )
 
 func main() {
+	// Affichage de la page de garde
 	fmt.Println(red.PageDeGarde())
-	red.Musique()
-	//Création du personnage
-	player := red.NewCharacter("Héros")
+
+	// Préparer le WaitGroup pour la musique
+	var wg sync.WaitGroup
+	wg.Add(1) // On ajoute la goroutine musique
+
+	// Lancer la musique en arrière-plan
+	go func() {
+		defer wg.Done()
+		red.Musique()
+	}()
+
+	// Exemple de personnage
+	name := "Héros"
+	inventory := map[string]int{
+		"Potion de vie":    2,
+		"Potion de poison": 1,
+		"Bouclier":         1,
+	}
 
 	// Affichage de l'inventaire
-	player.ShowInventory()
+	red.Inventaire(name, inventory)
 
-	// Utilisation d'une potion de vie
-	player.UsePotion()
-
-	// Affichage de l'inventaire après utilisation
-	player.ShowInventory()
-
-	// Ajout et retrait d'objets
-	player.AddItem("Potion de vie", 1)
-	player.RemoveItem("Potion de poison", 1)
-
-	// Affichage final de l'inventaire
-	player.ShowInventory()
+	// Attendre que la musique se termine avant de fermer le programme
+	wg.Wait()
+	fmt.Println("Programme terminé.")
 }
-
