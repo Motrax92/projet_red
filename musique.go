@@ -10,7 +10,7 @@ import (
 	"github.com/faiface/beep/speaker"
 )
 
-func Musique() {
+func musique() {
 	// Ouvrir le fichier MP3
 	f, err := os.Open("musique.mp3")
 	if err != nil {
@@ -23,8 +23,7 @@ func Musique() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// ⚠️ ne pas defer streamer.Close() ici, sinon ça coupe la boucle
-	// on ferme manuellement plus tard si besoin
+	defer streamer.Close()
 
 	// Initialiser le speaker
 	err = speaker.Init(format.SampleRate, format.SampleRate.N(time.Second/10))
@@ -32,12 +31,11 @@ func Musique() {
 		log.Fatal(err)
 	}
 
-	// Créer une boucle infinie
-	loop := beep.Loop(-1, streamer)
+	// Jouer le son
+	done := make(chan bool)
+	speaker.Play(beep.Seq(streamer, beep.Callback(func() {
+		done <- true
+	})))
 
-	// Jouer la musique en boucle
-	speaker.Play(loop)
-
-	// Bloquer pour que le programme tourne en continu
-	select {} // boucle infinie
+	<-done // attendre la fin de la musique
 }
