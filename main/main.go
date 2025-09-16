@@ -25,9 +25,10 @@ func main() {
 	// Exemple de personnage
 	name := "Héros"
 	inventory := map[string]int{
-		"Potion de vie":    2,
-		"Potion de poison": 1,
-		"Bouclier":         1,
+		"Potion de vie":    3,
+		"Potion de poison": 4,
+		"Bouclier":         6,
+		"Boule de feu":		2,
 	}
 
 	// Affichage de l'inventaire
