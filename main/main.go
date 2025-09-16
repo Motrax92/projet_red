@@ -51,7 +51,7 @@ func main() {
 
 			// Attendre la fin de la musique avant de revenir au menu
 			wg.Wait()
-			fmt.Println("🎵 La musique est terminée.\n")
+			fmt.Println("🎵 La musique est terminée.")
 
 		case 2:
 			fmt.Println("⚙️ Menu Paramètres (en cours de développement...)")
