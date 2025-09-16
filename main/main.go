@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"red"
 	"sync"
+
+	"red"
 )
 
 func main() {
@@ -29,7 +30,7 @@ func main() {
 		"Potion de vie":    3,
 		"Potion de poison": 4,
 		"Bouclier":         6,
-		"Boule de feu":		2,
+		"Boule de feu":     2,
 	}
 
 	// Affichage de l'inventaire
