@@ -20,6 +20,8 @@ func main() {
 		red.Musique()
 	}()
 
+	red.Games()
+
 	// Exemple de personnage
 	name := "Héros"
 	inventory := map[string]int{
