@@ -5,10 +5,7 @@ import (
 	"fmt"
 )
 
-func Main() {
-	fmt.Println(red.PageDeGarde())
-}
-
 func main() {
+	fmt.Println(red.PageDeGarde())
 	red.Musique()
 }
