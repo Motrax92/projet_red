@@ -1,11 +1,11 @@
 package main             
 
 import (
-	"fmt"
 	"red"
+	"fmt"
 )
 
-func main() {
+func Main() {
 	fmt.Println(red.PageDeGarde())
 }
 
