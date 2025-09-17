@@ -2,14 +2,17 @@ package main
 
 import (
 	"fmt"
-	"red"
+	"red/inventaire"
+	"red/personnages"
+	"red/musique"
+	"red/pagedegarde"
 	"sync"
 )
 
 func main() {
 	for {
 		// --- MENU PRINCIPAL ---
-		fmt.Println(red.PageDeGarde())
+		fmt.Println(pagedegarde.PageDeGarde())
 		fmt.Println("------------------------------------------------")
 		fmt.Println("                 M E N U   P R I N C I P A L    ")
 		fmt.Println("------------------------------------------------")
@@ -32,7 +35,7 @@ func main() {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
-				red.Musique()
+				musique.Musique()
 			}()
 
 			// Exemple de personnage et inventaire
@@ -44,10 +47,10 @@ func main() {
 			}
 
 			// Afficher l'inventaire
-			red.Inventaire(name, inventory)
+			inventaire.Inventaire(name, inventory)
 
 			// Lancer le combat tour par tour
-			red.LancerCombat()
+			personnages.LancerCombat()
 
 			// Attendre la fin de la musique avant de revenir au menu
 			wg.Wait()
