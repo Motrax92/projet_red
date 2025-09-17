@@ -1,6 +1,10 @@
 package game
 
-import "fmt"
+import (
+	"fmt"
+	"red/personnages"
+ // ⚠️ adapte selon ton chemin exact
+)
 
 func Games() {
 	fmt.Println("------------------------------------------------")
@@ -19,6 +23,7 @@ func Games() {
 	switch choix {
 	case 1:
 		fmt.Println("🎮 Jeu lancé !")
+		personnages.LancerCombat() // 👈 démarre le combat
 	case 2:
 		fmt.Println("⚙️ Menu Paramètres")
 	case 3:
