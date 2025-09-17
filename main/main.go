@@ -1,6 +1,7 @@
 package main
 
 import (
+	"red/prologue"
 	"fmt"
 	"red/inventaire"
 	"red/personnages"
@@ -10,6 +11,7 @@ import (
 )
 
 func main() {
+
 	for {
 		// --- MENU PRINCIPAL ---
 		fmt.Println(pagedegarde.PageDeGarde())
@@ -29,6 +31,9 @@ func main() {
 		switch choix {
 		case 1:
 			fmt.Println("🎮 Le jeu commence !")
+
+			// Prologue au lancement du jeu
+			prologue.Show()
 
 			// Lancer la musique en arrière-plan avec WaitGroup
 			var wg sync.WaitGroup
@@ -83,7 +88,30 @@ func main() {
 			fmt.Println("🎵 La musique est terminée.")
 
 		case 2:
-			fmt.Println("⚙️ Menu Paramètres (en cours de développement...)")
+			// ⚙️ Sous-menu Paramètres > Langue
+			for {
+				fmt.Println("------------------------------------------------")
+				fmt.Println("            P A R A M È T R E S  >  L A N G U E ")
+				fmt.Println("------------------------------------------------")
+				fmt.Println("1. Français (actuel)")
+				fmt.Println("2. Anglais")
+				fmt.Println("3. Retour")
+				fmt.Println("------------------------------------------------")
+				var choixLang int
+				fmt.Print("👉 Choisissez une option : ")
+				fmt.Scanln(&choixLang)
+
+				if  choixLang == 2 {
+					fmt.Println("On parle français ici.")
+				} else if choixLang == 1{
+					break
+				}else if choixLang == 3 {
+					break
+				} else {
+					fmt.Println("❌ Choix invalide, réessayez.")
+				}
+				fmt.Println()
+			}
 
 		case 3:
 			fmt.Println("👋 Au revoir !")
@@ -96,3 +124,4 @@ func main() {
 		fmt.Println() // saute une ligne pour la lisibilité
 	}
 }
+
