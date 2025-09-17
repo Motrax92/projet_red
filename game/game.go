@@ -1,4 +1,4 @@
-package red
+package game
 
 import "fmt"
 
