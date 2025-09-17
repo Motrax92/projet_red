@@ -1,4 +1,6 @@
-package red 
+package inventaire
+
+
 import "fmt"
 
 // Fonction pour afficher l'inventaire d'un personnage

@@ -1,7 +1,8 @@
-package red
+package personnages
 
 import (
 	"fmt"
+	"red/inventaire"
 )
 
 // ----------------------
@@ -76,12 +77,18 @@ func LancerCombat() {
 		fmt.Scan(&choix)
 
 		if choix == 1 {
-			joueur.Attaquer(&ennemi.Personnage)
-		} else if choix == 2 {
-			continue // on saute le reste du tour (l'ennemi ne joue pas encore)
-		} else {
-			fmt.Println("Choix invalide, tu perds ton tour !")
-		}
+	joueur.Attaquer(&ennemi.Personnage)
+} else if choix == 2 {
+	// Appel direct de la fonction Inventaire
+	inventaire.Inventaire("Héros", map[string]int{
+		"Potion de vie":    2,
+		"Potion de poison": 1,
+		"Bouclier":         1,
+	})
+	continue // on saute le reste du tour
+} else {
+	fmt.Println("Choix invalide, tu perds ton tour !")
+}
 
 		// Vérifie si l’ennemi est mort
 		if !ennemi.EstVivant() {

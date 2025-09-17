@@ -1,4 +1,4 @@
-package red
+package musique
 
 import (
 	"log"
