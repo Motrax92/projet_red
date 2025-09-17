@@ -49,6 +49,32 @@ func main() {
 			// Afficher l'inventaire
 			inventaire.Inventaire(name, inventory)
 
+			// --- Sous-menu Inventaire ---
+			for {
+				fmt.Println("------------------------------------------------")
+				fmt.Println("1. Utiliser un objet")
+				fmt.Println("2. Continuer vers le combat")
+				fmt.Println("------------------------------------------------")
+
+				var choixInv int
+				fmt.Print("👉 Entrez un numéro : ")
+				fmt.Scanln(&choixInv)
+
+				if choixInv == 1 {
+					var objet string
+					fmt.Print("Quel objet voulez-vous utiliser ? ")
+					fmt.Scanln(&objet)
+
+					inventaire.UtiliserObjet(inventory, objet)
+					inventaire.Inventaire(name, inventory) // réaffiche après utilisation
+
+				} else if choixInv == 2 {
+					break // sortir de la boucle → aller au combat
+				} else {
+					fmt.Println("❌ Choix invalide, réessayez.")
+				}
+			}
+
 			// Lancer le combat tour par tour
 			personnages.LancerCombat()
 
